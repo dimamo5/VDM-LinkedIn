@@ -1,14 +1,17 @@
 class Experience
 types
--- TODO Define types here
+	public String = seq1 of char; 
 values
 -- TODO Define values here
 instance variables
 -- TODO Define instance variables here
-	private name: set of char;
-	private title: 'WORKER' | 'CEO';
+	private name: String;
+	private title: String;
+	private description: String;
 operations
 -- TODO Define operations here
+	public Experience: String * String * String ==> Experience
+	Experience(n,t,des) == (name:=n;title:=t;description:=des;return self)
 functions
 -- TODO Define functiones here
 traces
