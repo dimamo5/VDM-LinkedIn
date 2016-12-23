@@ -6,13 +6,15 @@ values
 instance variables
 -- TODO Define instance variables here
    private connects : set of Person := {};
-   private name: seq of char;
+   private name: Utils`String;
+   private myCommendations : Commendations; --TODO inicializar isto
+   private academics : set of AcademicEducation := {};
    --private address :set of char;
 operations
 -- TODO Define operations here
-	public Person: seq of char ==> Person
+	public Person: Utils`String ==> Person
          Person(n) == (name:=n; return self)
-         post connects = {};
+         post connects = {} and academics = {}; --TODO add commendations (empty)
 functions
 -- TODO Define functiones here
 traces
