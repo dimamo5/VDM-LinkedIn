@@ -1,6 +1,6 @@
 class Experience
 types
-	public String = seq1 of char; 
+	public String = Utils`String;
 values
 -- TODO Define values here
 instance variables

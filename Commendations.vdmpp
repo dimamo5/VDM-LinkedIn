@@ -1,0 +1,23 @@
+class Commendations
+types
+-- TODO Define types here
+private Skill = Utils`String;
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+private commList: inmap Skill to set of Person := { |-> };
+
+operations
+-- TODO Define operations here
+	public Commendations: () ==> Commendations
+	Commendations() == (return self);
+
+--TODO operation to add empty commendation (representing some skill of Person withou commendations yet)
+--TODO operation to add commendation to some skill
+
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Commendations
