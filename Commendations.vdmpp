@@ -1,7 +1,7 @@
 class Commendations
 types
 -- TODO Define types here
-private Skill = Utils`String;
+public Skill = Utils`String;
 values
 -- TODO Define values here
 instance variables
@@ -10,11 +10,23 @@ private commList: inmap Skill to set of Person := { |-> };
 
 operations
 -- TODO Define operations here
-	public Commendations: () ==> Commendations
-	Commendations() == (return self);
+public Commendations: () ==> Commendations
+Commendations() == (return self);
 
+public pure canRecommend: Person * Skill ==> bool
+	canRecommend(person,skill)==(
+			return skill not in set dom commList or
+			person not in set commList(skill);
+	);
+	
+public addRecommend: Person * Skill ==> ()
+	addRecommend(person,skill)==
+		if skill in set dom commList then commList:= commList ++ { skill |-> commList(skill) union {person}} 
+		else commList:= commList munion {skill |-> {person} };
+	
 --TODO operation to add empty commendation (representing some skill of Person withou commendations yet)
 --TODO operation to add commendation to some skill
+--commList := commList munion {skill |-> person}
 
 functions
 -- TODO Define functiones here

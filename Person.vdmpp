@@ -9,12 +9,24 @@ instance variables
    public name: Utils`String;
    private myCommendations : Commendations := new Commendations();
    private academics : set of AcademicEducation := {};
+   private experiences : set of Experience := {};
    --private address :set of char;
 operations
 -- TODO Define operations here
 	public Person: Utils`String ==> Person
          Person(n) == (name:=n; return self)
          post connects = {} and academics = {}; --TODO add commendations (empty)
+	
+	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Date ==> ()
+					addAcademicEducation(inst,desc,year) ==
+					academics:= academics union {new AcademicEducation(inst,desc,year)};
+	
+	public addCommendation: Person * Commendations`Skill ==> ()
+				addCommendation(person,skill) == 
+					myCommendations.addRecomendation(person,skill)
+				pre myCommendations.canRecommend(person,skill)
+				post not myCommendations.canRecommend(person,skill);
+					
 functions
 -- TODO Define functiones here
 traces
