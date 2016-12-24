@@ -19,8 +19,8 @@ public pure canRecommend: Person * Skill ==> bool
 			person not in set commList(skill);
 	);
 	
-public addRecommend: Person * Skill ==> ()
-	addRecommend(person,skill)==
+public addRecomendation: Person * Skill ==> ()
+	addRecomendation(person,skill)==
 		if skill in set dom commList then commList:= commList ++ { skill |-> commList(skill) union {person}} 
 		else commList:= commList munion {skill |-> {person} };
 	
