@@ -1,0 +1,43 @@
+class LinkedInTest is subclass of TestCase
+
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+	linkedIn: LinkedIn := new LinkedIn();
+	person1: Person := new Person("diogo");
+	person2: Person := new Person("magalhaes");
+	person3: Person := new Person("moura");
+	person4: Person := new Person("ines");
+	person5: Person := new Person("alexandra");
+	person6: Person := new Person("carneiro");
+	person7: Person := new Person("sergio");
+	person8: Person := new Person("augusto");
+	person9: Person := new Person("domingues");
+operations
+	
+	private addUsers: () ==> ()
+	addUsers() ==
+	(
+		linkedIn.addPerson(person1);
+		linkedIn.addPerson(person2);
+		linkedIn.addPerson(person3);
+		linkedIn.addPerson(person4);
+		linkedIn.addPerson(person5);
+		linkedIn.addPerson(person6);
+		linkedIn.addPerson(person7);
+		linkedIn.addPerson(person8);
+		linkedIn.addPerson(person9);
+	);
+		
+	public static main: () ==> ()
+	main() ==
+	(
+		return;
+	);
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end LinkedInTest

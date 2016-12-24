@@ -17,7 +17,7 @@ operations
          Person(n) == (name:=n; return self)
          post connects = {} and academics = {}; --TODO add commendations (empty)
 	
-	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Date ==> ()
+	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Year ==> ()
 					addAcademicEducation(inst,desc,year) ==
 					academics:= academics union {new AcademicEducation(inst,desc,year)};
 	
