@@ -11,13 +11,41 @@ operations
 	public LinkedIn: () ==> LinkedIn
 	LinkedIn() == (return self);
 	
-	public addPerson: Utils`String ==> ()
-	addPerson(name) == 
-	people := people union {new Person(name)};
-	
 	public addPerson: Person ==> ()
 	addPerson(p) == 
-	people := people union {p};
+	people := people union {p}
+	pre p not in set people
+	post p in set people;
+	
+	public searchPerson: Utils`String ==> set of Person
+	searchPerson(name) ==
+		return { person | person in set people & person.name = name};
+		--pre name in set people.name;  //TODO
+				--dcl r:set of Person := {};  --TODO ver se é trolha??? ask Tô
+		--for all p in set people do
+		--(if p.name=name
+	--	then r:=r union {p}
+		--);
+		
+		public pure peopleWithMostConnects: () ==> Person
+		peopleWithMostConnects()==(
+			dcl r:nat :=0;
+			dcl mostConnectedPerson: [Person] :=nil;
+				for all p in set people do
+					(if card p.connects > r
+					then mostConnectedPerson := p;
+					);
+			return mostConnectedPerson;  --help como conto as pessoas com mais coneccoes
+		)
+		pre card people > 0;
+		
+		public pure commonPeople: Person * Person ==> set of Person
+		commonPeople(person1,person2) ==
+			return person1.connects inter person2.connects;
+			
+		
+		
+
 functions
 -- TODO Define functiones here
 traces

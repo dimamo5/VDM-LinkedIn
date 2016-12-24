@@ -5,9 +5,9 @@ values
 -- TODO Define values here
 instance variables
 -- TODO Define instance variables here
-   private connects : set of Person := {};
-   private name: Utils`String;
-   private myCommendations : Commendations; --TODO inicializar isto
+   public connects : set of Person := {};
+   public name: Utils`String;
+   private myCommendations : Commendations := new Commendations();
    private academics : set of AcademicEducation := {};
    --private address :set of char;
 operations
