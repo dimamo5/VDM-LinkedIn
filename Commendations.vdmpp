@@ -8,7 +8,7 @@ values
 -- TODO Define values here
 instance variables
 -- TODO Define instance variables here
-private commList: inmap Skill to set of Person := { |-> };
+public commList: inmap Skill to set of Person := { |-> };
 
 operations
 -- TODO Define operations here
@@ -29,6 +29,13 @@ public addRecomendation: Person * Skill ==> ()
 		pre dom commList <> {} 	--o inmap não deve estar vazio
 		post person in set commList(skill);  
 	
+public removeRecommendation: Person * Skill ==> ()
+	removeRecommendation(person,skill) == 
+		commList(skill) := commList(skill) \ {person}  --todo ver se isto pinta / é trolha
+		pre skill in set dom commList 
+			and person in set commList(skill)
+		post commList <> commList~ 
+			and person not in set commList(skill);
 
 public addSkill: Skill ==> ()
 	addSkill(skill)==
@@ -37,6 +44,11 @@ public addSkill: Skill ==> ()
 	post commList <> commList~
 		and skill in set dom commList; 
 
+public removeSkill: Skill ==> ()
+	removeSkill(skill) ==
+		commList := {skill} <-: commList
+		pre skill in set dom commList
+		post skill not in set dom commList;
 
 functions
 -- TODO Define functiones here
