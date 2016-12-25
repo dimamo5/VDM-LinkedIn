@@ -1,3 +1,5 @@
+
+
 class Commendations
 types
 -- TODO Define types here
@@ -13,20 +15,28 @@ operations
 public Commendations: () ==> Commendations
 Commendations() == (return self);
 
-public pure canRecommend: Person * Skill ==> bool
+public pure canRecommend: Person * Skill ==> bool  
 	canRecommend(person,skill)==(
-			return skill not in set dom commList or
-			person not in set commList(skill);
+			return skill --not 
+			in set dom commList or  
+			person not in set commList(skill); --nao pode recomendar >1 vez a mesma skill tal como no linkedin
 	);
 	
 public addRecomendation: Person * Skill ==> ()
 	addRecomendation(person,skill)==
 		if skill in set dom commList then commList:= commList ++ { skill |-> commList(skill) union {person}} 
-		else commList:= commList munion {skill |-> {person} };
+		else commList:= commList munion {skill |-> {person} }
+		pre dom commList <> {} 	--o inmap não deve estar vazio
+		post person in set commList(skill);  
 	
---TODO operation to add empty commendation (representing some skill of Person withou commendations yet)
---TODO operation to add commendation to some skill
---commList := commList munion {skill |-> person}
+
+public addSkill: Skill ==> ()
+	addSkill(skill)==
+		commList:= commList munion {skill |-> {} }
+	pre skill not in set dom commList
+	post commList <> commList~
+		and skill in set dom commList; 
+
 
 functions
 -- TODO Define functiones here
