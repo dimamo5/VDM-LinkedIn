@@ -19,13 +19,26 @@ operations
 	
 	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Year ==> ()
 					addAcademicEducation(inst,desc,year) ==
-					academics:= academics union {new AcademicEducation(inst,desc,year)};
+					academics:= academics union {new AcademicEducation(inst,desc,year)}; 
+	
+	public removeAcademicEducation: AcademicEducation ==> ()
+		removeAcademicEducation(AcademicEducation) == 
+			academics := academics \ {AcademicEducation}
+			pre AcademicEducation in set academics
+			post academics <> academics~ 
+				and AcademicEducation not in set academics; 
 	
 	public addCommendation: Person * Commendations`Skill ==> ()
 				addCommendation(person,skill) == 
 					myCommendations.addRecomendation(person,skill)
-				pre myCommendations.canRecommend(person,skill) and person in set connects -- so as conexoes podem recomendar
+				pre  person in set connects 											-- so as conexoes podem recomendar
+					and myCommendations.canRecommend(person,skill) 
 				post not myCommendations.canRecommend(person,skill);
+				
+	public removeCommendation: Person * Commendations`Skill ==> ()
+		removeCommendation(person,skill) == 
+			myCommendations.removeRecommendation(person,skill)
+			pre person in set connects
 					
 functions
 -- TODO Define functiones here
