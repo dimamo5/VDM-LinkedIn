@@ -75,6 +75,23 @@ operations
 		)
 		pre person1 in set people and person2 in set people;
 		
+		public avgDistance: () ==> real
+			avgDistance() ==(
+			dcl distTotal:nat:=0;
+			dcl num:nat:=0;
+			dcl temp:nat:=0;
+				for all person in set people do(
+					for all connect in set people do(
+						temp:=distancePeople(person,connect);
+						if temp >0 then(
+						distTotal:=temp+distTotal;
+						num:= num+1;
+						)
+					)
+				);
+				return distTotal/num;
+			)
+
 
 functions
 -- TODO Define functiones here
