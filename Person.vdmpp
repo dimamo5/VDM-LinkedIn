@@ -15,18 +15,41 @@ operations
 -- TODO Define operations here
 	public Person: Utils`String ==> Person
          Person(n) == (name:=n; return self)
-         post connects = {} and academics = {}; --TODO add commendations (empty)
+         post connects = {} and academics = {} and myCommendations.commList = {|->}; 
 	
 	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Year ==> ()
 					addAcademicEducation(inst,desc,year) ==
-					academics:= academics union {new AcademicEducation(inst,desc,year)};
+					academics:= academics union {new AcademicEducation(inst,desc,year)}; 
+	
+	public removeAcademicEducationObj: AcademicEducation ==> ()
+		removeAcademicEducationObj(academicEducation) == 
+			academics := academics \ {academicEducation}
+			pre academicEducation in set academics
+			post academics <> academics~ 
+				and academicEducation not in set academics; 
 	
 	public addCommendation: Person * Commendations`Skill ==> ()
 				addCommendation(person,skill) == 
 					myCommendations.addRecomendation(person,skill)
-				pre myCommendations.canRecommend(person,skill)
+				pre  person in set connects 											-- so as conexoes podem recomendar
+					and myCommendations.canRecommend(person,skill) 
 				post not myCommendations.canRecommend(person,skill);
+				
+	public removeCommendation: Person * Commendations`Skill ==> ()
+		removeCommendation(person,skill) == 
+			myCommendations.removeRecommendation(person,skill)
+			pre person in set connects;
+			
+	public addExperience: Experience`String * Experience`String * Experience`String ==> () 
+		addExperience(nm,title,description) ==
+			experiences := experiences union {new Experience(nm,title,description)};
 					
+	public removeExperience : Experience ==> ()
+		removeExperience(experience) == 
+			experiences := experiences \ {experience}
+			pre experience in set experiences
+			post experience not in set experiences;
+			
 functions
 -- TODO Define functiones here
 traces
