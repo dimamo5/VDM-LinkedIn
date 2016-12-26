@@ -16,6 +16,20 @@ operations
 	public Person: Utils`String ==> Person
          Person(n) == (name:=n; return self)
          post connects = {} and academics = {} and myCommendations.commList = {|->}; 
+         
+  public addConnect:Person ==> ()
+  		addConnect(person)==(
+  				addPerson(person);
+  				person.addPerson(self);
+  			)
+  			pre person not in set connects and self not in set person.connects
+  			post person in set connects and self in set person.connects;
+  			
+  public addPerson:Person ==> ()
+  			addPerson(person) ==
+  			connects:= connects union {person}
+  			pre person not in set connects
+  			post person in set connects;
 	
 	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Year ==> ()
 					addAcademicEducation(inst,desc,year) ==

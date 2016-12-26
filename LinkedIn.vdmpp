@@ -43,7 +43,37 @@ operations
 		commonPeople(person1,person2) ==
 			return person1.connects inter person2.connects;
 			
+		public distancePeople: Person * Person ==> nat1
+		distancePeople(person1,person2) ==(
+			dcl q: set of Person := person1.connects;
+			dcl qVisited: set of Person := {};
+			dcl counter: nat1 := 1;
+
+			if person1 = person2 then
+				return 0;
 		
+			-- while user2 is not in the search results
+			while person2 not in set q do (
+				counter := counter + 1;
+			
+			-- add to the search set the connections of the current users (add to the search the next level of the tree)
+				for all person in set q do(
+					qVisited:= qVisited union {person};
+					q := q union person.connects \ qVisited;
+				);
+			
+			-- to prevent an infinite loop
+				if card q = 0 then
+					return -1
+			);
+		
+		-- if the two users are not reachable then it is returned INFINITY
+			if person2 not in set q then
+				return -1
+			else
+				return counter
+		)
+		pre person1 in set people and person2 in set people;
 		
 
 functions
