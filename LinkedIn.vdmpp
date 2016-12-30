@@ -20,21 +20,19 @@ operations
 	public searchPerson: Utils`String ==> set of Person
 	searchPerson(name) ==
 		return { person | person in set people & person.name = name};
-		--pre name in set people.name;  //TODO
-				--dcl r:set of Person := {};  --TODO ver se é trolha??? ask Tô
-		--for all p in set people do
-		--(if p.name=name
-	--	then r:=r union {p}
-		--);
 		
 		public pure peopleWithMostConnects: () ==> Person
 		peopleWithMostConnects()==(
 			dcl r:nat :=0;
 			dcl mostConnectedPerson: [Person] :=nil;
-				for all p in set people do
-					(if card p.connects > r
-					then mostConnectedPerson := p;
-					);
+			
+			for all p in set people do
+				(if card p.connects > r
+				then( mostConnectedPerson := p;
+							r := card p.connects;
+							)
+				);
+					
 			return mostConnectedPerson;  --help como conto as pessoas com mais coneccoes
 		)
 		pre card people > 0;
@@ -43,7 +41,7 @@ operations
 		commonPeople(person1,person2) ==
 			return person1.connects inter person2.connects;
 			
-		public distancePeople: Person * Person ==> nat1
+		public distancePeople: Person * Person ==> int
 		distancePeople(person1,person2) ==(
 			dcl q: set of Person := person1.connects;
 			dcl qVisited: set of Person := {};
@@ -80,17 +78,17 @@ operations
 			dcl distTotal:nat:=0;
 			dcl num:nat:=0;
 			dcl temp:nat:=0;
-				for all person in set people do(
-					for all connect in set people do(
-						temp:=distancePeople(person,connect);
-						if temp >0 then(
-						distTotal:=temp+distTotal;
-						num:= num+1;
-						)
+			for all person in set people do(
+				for all connect in set people \ {person} do(
+					temp:=distancePeople(person,connect);
+					if temp >0 then(
+					distTotal:=temp+distTotal;
+					num:= num+1;
 					)
-				);
-				return distTotal/num;
-			)
+				)
+			);
+			return distTotal/num;
+		)
 
 
 functions
