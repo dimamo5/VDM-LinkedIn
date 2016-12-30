@@ -10,9 +10,9 @@ instance variables
    private myCommendations : Commendations := new Commendations();
    private academics : set of AcademicEducation := {};
    private experiences : set of Experience := {};
-   --private address :set of char;
+   private other :Utils`String :="";
+   
 operations
--- TODO Define operations here
 	public Person: Utils`String ==> Person
          Person(n) == (name:=n; return self)
          post connects = {} and academics = {} and myCommendations.commList = {|->}; 
@@ -63,6 +63,11 @@ operations
 			experiences := experiences \ {experience}
 			pre experience in set experiences
 			post experience not in set experiences;
+			
+	public addOtherCV : Utils`String ==> ()
+		addOtherCV(cv) ==
+			other:= other ^ cv
+			post len other > len other~;
 			
 functions
 -- TODO Define functiones here
