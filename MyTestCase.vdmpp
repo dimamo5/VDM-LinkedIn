@@ -1,4 +1,4 @@
-class TestCase
+class MyTestCase
 /*
   Superclass for test classes, simpler but more practical than VDMUnit`TestCase. 
   For proper use, you have to do: New -> Add VDM Library -> IO.
@@ -28,4 +28,4 @@ operations
 		)
 	post expected = actual
   
-end TestCase
+end MyTestCase

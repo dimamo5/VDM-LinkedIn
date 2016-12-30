@@ -1,4 +1,4 @@
-class LinkedInTest is subclass of TestCase
+class LinkedInTest is subclass of MyTestCase
 	--linkedIn: LinkedIn := new LinkedIn();
 operations
 		--dcl diogo: Person := new Person("diogo");
