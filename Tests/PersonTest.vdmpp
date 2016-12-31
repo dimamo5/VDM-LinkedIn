@@ -1,0 +1,49 @@
+class PersonTest is subclass of MyTestCase
+
+operations
+	private ConfigPerson: () ==> Person
+	ConfigPerson() ==
+		return new Person("teste");
+	
+	public testOtherCv:() ==> ()
+	testOtherCv()==(
+		dcl p : Person := ConfigPerson();
+		p.addOtherCV("ola");
+		assertEqual("ola",p.other);
+		p.addOtherCV("1");
+		assertEqual("ola1",p.other);
+	);
+	
+	public testSkill:() ==> ()
+	testSkill() ==(
+		dcl p : Person := ConfigPerson();
+		p.myCommendations.addSkill("JS");
+		assertTrue("JS" in set dom p.myCommendations.commList);
+		p.myCommendations.removeSkill("JS");
+		assertTrue("JS" not in set dom p.myCommendations.commList);
+		
+	);
+	
+	public testRecomendation:() ==> ()
+	testRecomendation()==(
+		dcl p : Person := ConfigPerson();
+		dcl p1 : Person := new Person("x");
+		p.addConnect(p1);
+		
+		p.myCommendations.addSkill("JS");
+		p.addCommendation(p1,"JS");
+		assertEqual(p.myCommendations.commList("JS"),{p1});
+		
+		p.removeCommendation(p1,"JS");
+		assertEqual(p.myCommendations.commList("JS"),{});
+	);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+end PersonTest

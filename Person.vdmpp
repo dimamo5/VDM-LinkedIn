@@ -7,10 +7,10 @@ instance variables
 -- TODO Define instance variables here
    public connects : set of Person := {};
    public name: Utils`String;
-   private myCommendations : Commendations := new Commendations();
+   public myCommendations : Commendations := new Commendations();
    private academics : set of AcademicEducation := {};
    private experiences : set of Experience := {};
-   private other :Utils`String :="";
+   public other :Utils`String :="";
    
 operations
 	public Person: Utils`String ==> Person

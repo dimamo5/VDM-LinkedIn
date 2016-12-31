@@ -17,8 +17,7 @@ Commendations() == (return self);
 
 public pure canRecommend: Person * Skill ==> bool  
 	canRecommend(person,skill)==(
-			return skill --not 
-			in set dom commList or  
+			return skill in set dom commList and  
 			person not in set commList(skill); --nao pode recomendar >1 vez a mesma skill tal como no linkedin
 	);
 	

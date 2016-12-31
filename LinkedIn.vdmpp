@@ -17,7 +17,7 @@ operations
 	pre p not in set people
 	post p in set people;
 	
-	public searchPerson: Utils`String ==> set of Person
+	public searchPerson: Utils`String ==> set of Person   --TODO ranked search and substring search
 	searchPerson(name) ==
 		return { person | person in set people & person.name = name};
 		

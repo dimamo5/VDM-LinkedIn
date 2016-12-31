@@ -84,12 +84,15 @@ operations
   public static main: () ==> ()
   main() == (
   		dcl liTest : LinkedInTest := new LinkedInTest();
+  		dcl personTest : PersonTest := new PersonTest();
   		liTest.testSearch();
   		liTest.testCommonPeople();
   		liTest.testPeopleMostConnects();
   		liTest.testDistanceBetweenPeople();
   		liTest.testAverageDistance();
-  		
+  		personTest.testOtherCv();
+  		personTest.testSkill();
+  		personTest.testRecomendation();
   );
   
   
