@@ -1,56 +1,60 @@
 class LinkedIn
-types
--- TODO Define types here
-values
--- TODO Define values here
+
 instance variables
--- TODO Define instance variables here
 	private people: set of Person :={};
+	inv verifyMaxConnect();
 operations
--- TODO Define operations here
+	-- LinkedIn contrutor
 	public LinkedIn: () ==> LinkedIn
 	LinkedIn() == (return self);
 	
+	--Adiciona uma pessoa à rede do LinkedIn
 	public addPerson: Person ==> ()
 	addPerson(p) == 
 	people := people union {p}
 	pre p not in set people
 	post p in set people;
 	
+	--Pesquisa de um utilizador pelo seu nome
 	public searchPerson: Utils`String ==> set of Person   --TODO ranked search and substring search
 	searchPerson(name) ==
 		return { person | person in set people & person.name = name};
 		
-		public pure peopleWithMostConnects: () ==> Person
-		peopleWithMostConnects()==(
-			dcl r:nat :=0;
-			dcl mostConnectedPerson: [Person] :=nil;
+	--Determinar a pessoa com mais contactos	
+	public pure peopleWithMostConnects: () ==> Person
+	peopleWithMostConnects()==(
+		dcl r:nat :=0;
+		dcl mostConnectedPerson: [Person] :=nil;
 			
-			for all p in set people do
-				(if card p.connects > r
-				then( mostConnectedPerson := p;
-							r := card p.connects;
-							)
-				);
-					
-			return mostConnectedPerson;  --help como conto as pessoas com mais coneccoes
+		for all p in set people do
+			(if card p.connects > r
+			then( mostConnectedPerson := p;
+						r := card p.connects;
+						)
+			);
+		return mostConnectedPerson;  --help como conto as pessoas com mais coneccoes
 		)
 		pre card people > 0;
 		
+		
+		--Determinar os contactos em comum entre as duas pessoas passadas pelo argumento
 		public pure commonPeople: Person * Person ==> set of Person
 		commonPeople(person1,person2) ==
 			return person1.connects inter person2.connects;
 			
+		--Calcular as distancias entre duas pessoas usando um pesquisa em largura
+		--Retorna -1 se as pessoas nao estiverem conectas em nenhum nivel
+		--Retorna 0 se for a mesma pessoa
+		--Retorna >0 caso contrário
 		public distancePeople: Person * Person ==> int
 		distancePeople(person1,person2) ==(
-			dcl q: set of Person := person1.connects;
-			dcl qVisited: set of Person := {};
-			dcl counter: nat1 := 1;
+			dcl counter: nat1 := 1; --contador dos niveis que já passou
+			dcl q: set of Person := person1.connects; --Pessoas a visitar
+			dcl qVisited: set of Person := {}; --Pessoas já visitadas
 
-			if person1 = person2 then
-				return 0;
+			if person1 = person2 then return 0; --Se for a mesma pessoa
 		
-			-- while user2 is not in the search results
+			-- enquanto a pessoa nao esta no set a pesquisar
 			while person2 not in set q do (
 				counter := counter + 1;
 			
@@ -73,6 +77,7 @@ operations
 		)
 		pre person1 in set people and person2 in set people;
 		
+		--Retorna a média das distancias na rede
 		public avgDistance: () ==> real
 			avgDistance() ==(
 			dcl distTotal:nat:=0;
@@ -88,11 +93,15 @@ operations
 				)
 			);
 			return distTotal/num;
-		)
+		);
+		
+		public pure verifyMaxConnect:()==> bool
+			verifyMaxConnect()==(
+				dcl maxConnect : nat := card people;
+				for all p in set people do (
+					if card p.connects > maxConnect then return false
+				);
+				return true;
+			);
 
-
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
 end LinkedIn

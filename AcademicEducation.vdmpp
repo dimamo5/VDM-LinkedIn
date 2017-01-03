@@ -1,21 +1,17 @@
 class AcademicEducation
-types
--- TODO Define types here
-public InstitutionName = Utils`String;
-public AcademicDescription = Utils`String;
-public Year = nat1;
 
-values
--- TODO Define values here
+types
+	public InstitutionName = Utils`String;
+	public AcademicDescription = Utils`String;
+	public Year = nat1;
+
 instance variables
--- TODO Define instance variables here
-private institution : InstitutionName;
-private description : AcademicDescription;
-private date : Year; 
+	private institution : InstitutionName;
+	private description : AcademicDescription;
+	private date : Year; 
 
 operations
--- TODO Define operations here
-
+	-- Construtor Educacao Academica
 	public AcademicEducation : InstitutionName * AcademicDescription * Year ==> AcademicEducation
 	AcademicEducation(name, desc, yr) == (
 		institution := name;
@@ -23,9 +19,4 @@ operations
 		date := yr;
 	return self);
 		
-
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
 end AcademicEducation

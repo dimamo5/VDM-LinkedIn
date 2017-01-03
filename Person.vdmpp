@@ -1,22 +1,20 @@
 class Person
-types
--- TODO Define types here
-values
--- TODO Define values here
 instance variables
--- TODO Define instance variables here
    public connects : set of Person := {};
    public name: Utils`String;
    public myCommendations : Commendations := new Commendations();
    private academics : set of AcademicEducation := {};
    private experiences : set of Experience := {};
    public other :Utils`String :="";
-   
+   inv verifyConnections();
 operations
+	--Construtor Pessoa
 	public Person: Utils`String ==> Person
          Person(n) == (name:=n; return self)
          post connects = {} and academics = {} and myCommendations.commList = {|->}; 
-         
+  
+  --Adiciona uma conecao / Essa pessoa é adicionada as minhas coneccoes e 
+  --eu sou adicionado as coneccoes dela          
   public addConnect:Person ==> ()
   		addConnect(person)==(
   				addPerson(person);
@@ -24,17 +22,20 @@ operations
   			)
   			pre person not in set connects and self not in set person.connects
   			post person in set connects and self in set person.connects;
-  			
+  
+  --Adiciona a pessoa as minhas coneccoes
   public addPerson:Person ==> ()
   			addPerson(person) ==
   			connects:= connects union {person}
   			pre person not in set connects
   			post person in set connects;
 	
+	--Adiciona educacao academica
 	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Year ==> ()
 					addAcademicEducation(inst,desc,year) ==
 					academics:= academics union {new AcademicEducation(inst,desc,year)}; 
 	
+	--Remove educacao academica	
 	public removeAcademicEducationObj: AcademicEducation ==> ()
 		removeAcademicEducationObj(academicEducation) == 
 			academics := academics \ {academicEducation}
@@ -42,32 +43,45 @@ operations
 			post academics <> academics~ 
 				and academicEducation not in set academics; 
 	
+	--Adiciona um recomendacao por parte da pessoa a um determinada competencia
 	public addCommendation: Person * Commendations`Skill ==> ()
 				addCommendation(person,skill) == 
 					myCommendations.addRecomendation(person,skill)
 				pre person in set connects 				--so as conexoes podem recomendar
 					and myCommendations.canRecommend(person,skill) 
 				post not myCommendations.canRecommend(person,skill);
-				
+	
+	--Remove uma recomendacao feita a uma pessoa		
 	public removeCommendation: Person * Commendations`Skill ==> ()
 		removeCommendation(person,skill) == 
 			myCommendations.removeRecommendation(person,skill)
 			pre person in set connects;
-			
+	
+	--Adiciona uma experiencia professional		
 	public addExperience: Experience`String * Experience`String * Experience`String ==> () 
 		addExperience(nm,title,description) ==
 			experiences := experiences union {new Experience(nm,title,description)};
-					
+			
+	--Remove uma experiencia professional	
 	public removeExperience : Experience ==> ()
 		removeExperience(experience) == 
 			experiences := experiences \ {experience}
 			pre experience in set experiences
 			post experience not in set experiences;
-			
+	
+	--Adiciona outras carateristicas do curriculo
 	public addOtherCV : Utils`String ==> ()
 		addOtherCV(cv) ==
 			other:= other ^ cv
 			post len other > len other~;
+	
+	--Verifica as seu a pessoa esta nas suas conexoes		
+	public pure verifyConnections: ()==>bool
+		verifyConnections()==(
+			for all p in set connects do
+				if self not in set p.connects then return false;
+			return true;
+			);
 			
 functions
 -- TODO Define functiones here

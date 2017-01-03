@@ -37,13 +37,5 @@ operations
 		p.removeCommendation(p1,"JS");
 		assertEqual(p.myCommendations.commList("JS"),{});
 	);
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 end PersonTest
