@@ -23,8 +23,7 @@ public pure canRecommend: Person * Skill ==> bool
 	
 public addRecomendation: Person * Skill ==> ()
 	addRecomendation(person,skill)==
-		if skill in set dom commList then commList:= commList ++ { skill |-> commList(skill) union {person}} 
-		else commList:= commList munion {skill |-> {person} }
+		 commList:= commList ++ { skill |-> commList(skill) union {person}} 
 		pre dom commList <> {} 	--o inmap não deve estar vazio
 		post person in set commList(skill);  
 	

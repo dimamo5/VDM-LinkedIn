@@ -45,7 +45,7 @@ operations
 	public addCommendation: Person * Commendations`Skill ==> ()
 				addCommendation(person,skill) == 
 					myCommendations.addRecomendation(person,skill)
-				pre  person in set connects 											-- so as conexoes podem recomendar
+				pre person in set connects 				--so as conexoes podem recomendar
 					and myCommendations.canRecommend(person,skill) 
 				post not myCommendations.canRecommend(person,skill);
 				
