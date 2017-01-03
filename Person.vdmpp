@@ -3,8 +3,8 @@ instance variables
    public connects : set of Person := {};
    public name: Utils`String;
    public myCommendations : Commendations := new Commendations();
-   private academics : set of AcademicEducation := {};
-   private experiences : set of Experience := {};
+   public academics : set of AcademicEducation := {};
+   public experiences : set of Experience := {};
    public other :Utils`String :="";
    inv verifyConnections();
 operations
@@ -31,9 +31,13 @@ operations
   			post person in set connects;
 	
 	--Adiciona educacao academica
-	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Year ==> ()
-					addAcademicEducation(inst,desc,year) ==
-					academics:= academics union {new AcademicEducation(inst,desc,year)}; 
+	public addAcademicEducation: AcademicEducation`InstitutionName * AcademicEducation`AcademicDescription * AcademicEducation`Year ==> AcademicEducation
+					addAcademicEducation(inst,desc,year) ==(
+					dcl aca : AcademicEducation :=new AcademicEducation(inst,desc,year);
+					academics:= academics union {aca};
+					return aca;
+					)
+					post academics <> academics~ and card academics >card academics~;
 	
 	--Remove educacao academica	
 	public removeAcademicEducationObj: AcademicEducation ==> ()
@@ -58,9 +62,13 @@ operations
 			pre person in set connects;
 	
 	--Adiciona uma experiencia professional		
-	public addExperience: Experience`String * Experience`String * Experience`String ==> () 
-		addExperience(nm,title,description) ==
-			experiences := experiences union {new Experience(nm,title,description)};
+	public addExperience: Experience`String * Experience`String * Experience`String ==> Experience 
+		addExperience(nm,title,description) ==(
+			dcl exp :Experience := new Experience(nm,title,description);
+			experiences := experiences union {exp};
+			return exp;
+			)
+			post experiences <> experiences~ and card experiences >card experiences~;
 			
 	--Remove uma experiencia professional	
 	public removeExperience : Experience ==> ()
@@ -83,8 +91,4 @@ operations
 			return true;
 			);
 			
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
 end Person

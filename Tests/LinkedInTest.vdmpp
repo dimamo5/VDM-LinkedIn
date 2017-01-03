@@ -93,6 +93,8 @@ operations
   		personTest.testOtherCv();
   		personTest.testSkill();
   		personTest.testRecomendation();
+  		personTest.testAcadExp();
+  		personTest.testExp();
   );
   
   

@@ -37,5 +37,23 @@ operations
 		p.removeCommendation(p1,"JS");
 		assertEqual(p.myCommendations.commList("JS"),{});
 	);
+	
+	public testAcadExp:() ==> ()
+		testAcadExp()==(
+			dcl p : Person := ConfigPerson();
+			dcl aca : AcademicEducation:= p.addAcademicEducation("FEUP","MIEIC",2018);
+			assertEqual(p.academics,{aca});
+			p.removeAcademicEducationObj(aca);
+			assertEqual(p.academics,{});
+		);
+		
+	public testExp:() ==> ()
+		testExp()==(
+			dcl p : Person := ConfigPerson();
+			dcl exp : Experience:= p.addExperience("MUNDO","CEO","O BOSS");
+			assertEqual(p.experiences,{exp});
+			p.removeExperience(exp);
+			assertEqual(p.experiences,{});
+		);
 
 end PersonTest

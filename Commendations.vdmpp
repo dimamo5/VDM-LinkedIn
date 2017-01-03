@@ -25,7 +25,7 @@ operations
 	--Remove uma recomendacao a uma competencia
 	public removeRecommendation: Person * Skill ==> ()
 		removeRecommendation(person,skill) == 
-			commList(skill) := commList(skill) \ {person}  --todo ver se isto pinta / é trolha
+			commList(skill) := commList(skill) \ {person}
 		pre skill in set dom commList 
 			and person in set commList(skill)
 		post commList <> commList~ 
