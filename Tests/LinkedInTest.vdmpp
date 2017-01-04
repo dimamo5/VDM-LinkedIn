@@ -103,8 +103,25 @@ operations
 			dcl magalhaes: Person := new Person("magalhaes");
 			dcl linkedIn : LinkedIn := new LinkedIn();
 			diogo.addConnect(magalhaes);						
-			linkedIn.addPerson(diogo);  		
+			linkedIn.addPerson(diogo);
   	);
-  
+  	
+  	public static testCommomPeopleNotInNetwork: () ==> ()
+  		testCommomPeopleNotInNetwork()==(
+				dcl magalhaes: Person := new Person("magalhaes");
+				dcl moura: Person := new Person("moura");
+				dcl common : [set of Person] := nil;
+				dcl linkedIn : LinkedIn := new LinkedIn();				
+				common:=linkedIn.commonPeople(magalhaes,moura);  		
+  		);
+  		
+  	public static testMostConnectSmallNetwork: () ==> ()
+  		testMostConnectSmallNetwork()==(
+				dcl moura: Person := new Person("moura");
+				dcl most : [Person] := nil;
+				dcl linkedIn : LinkedIn := new LinkedIn();		
+				linkedIn.addPerson(moura);		
+				most:=linkedIn.peopleWithMostConnects();  		
+  		);
   
 end LinkedInTest

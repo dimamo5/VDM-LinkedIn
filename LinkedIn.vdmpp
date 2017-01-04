@@ -34,13 +34,14 @@ operations
 			);
 		return mostConnectedPerson;  --help como conto as pessoas com mais coneccoes
 		)
-		pre card people > 0;
+		pre card people > 1;
 		
 		
 		--Determinar os contactos em comum entre as duas pessoas passadas pelo argumento
 		public pure commonPeople: Person * Person ==> set of Person
 		commonPeople(person1,person2) ==
-			return person1.connects inter person2.connects;
+			return person1.connects inter person2.connects
+			pre person1 in set people and person2 in set people;
 			
 		--Calcular as distancias entre duas pessoas usando um pesquisa em largura
 		--Retorna -1 se as pessoas nao estiverem conectas em nenhum nivel
@@ -97,9 +98,8 @@ operations
 		
 		public pure verifyMaxConnect:()==> bool
 			verifyMaxConnect()==(
-				dcl maxConnect : nat := card people;
 				for all p in set people do (
-					if card p.connects >= maxConnect then return false
+					if not p.connects subset people then return false
 				);
 				return true;
 			);
