@@ -6,7 +6,6 @@ instance variables
    public academics : set of AcademicEducation := {};
    public experiences : set of Experience := {};
    public other :Utils`String :="";
-   inv verifyConnections();
 operations
 	--Construtor Pessoa
 	public Person: Utils`String ==> Person
@@ -83,12 +82,4 @@ operations
 			other:= other ^ cv
 			post len other > len other~;
 	
-	--Verifica as seu a pessoa esta nas suas conexoes		
-	public pure verifyConnections: ()==>bool
-		verifyConnections()==(
-			for all p in set connects do
-				if self not in set p.connects then return false;
-			return true;
-			);
-			
 end Person
