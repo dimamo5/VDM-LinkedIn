@@ -44,9 +44,9 @@ operations
 		dcl magalhaes: Person := new Person("magalhaes");
 		dcl ines: Person := new Person("ines");
 		dcl linkedIn : LinkedIn;
+		linkedIn:=ConfigLinkedIn({diogo,magalhaes,ines});
 		diogo.addConnect(magalhaes);
 		diogo.addConnect(ines);
-		linkedIn:=ConfigLinkedIn({diogo,magalhaes,ines});
 				
 		assertEqual(diogo,linkedIn.peopleWithMostConnects());
 	);
@@ -96,6 +96,15 @@ operations
   		personTest.testAcadExp();
   		personTest.testExp();
   );
+  
+  public static testPersonNotInNetwork: () ==> ()
+  	testPersonNotInNetwork()==(
+  		dcl diogo: Person := new Person("diogo");
+			dcl magalhaes: Person := new Person("magalhaes");
+			dcl linkedIn : LinkedIn := new LinkedIn();
+			diogo.addConnect(magalhaes);						
+			linkedIn.addPerson(diogo);  		
+  	);
   
   
 end LinkedInTest

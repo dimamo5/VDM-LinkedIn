@@ -2,7 +2,7 @@ class LinkedIn
 
 instance variables
 	private people: set of Person :={};
-	inv verifyMaxConnect();
+	inv people <> {} => verifyMaxConnect();
 operations
 	-- LinkedIn contrutor
 	public LinkedIn: () ==> LinkedIn
@@ -10,8 +10,8 @@ operations
 	
 	--Adiciona uma pessoa à rede do LinkedIn
 	public addPerson: Person ==> ()
-	addPerson(p) == 
-	people := people union {p}
+	addPerson(p) ==
+		people := people union {p}
 	pre p not in set people
 	post p in set people;
 	
@@ -99,7 +99,7 @@ operations
 			verifyMaxConnect()==(
 				dcl maxConnect : nat := card people;
 				for all p in set people do (
-					if card p.connects > maxConnect then return false
+					if card p.connects >= maxConnect then return false
 				);
 				return true;
 			);
