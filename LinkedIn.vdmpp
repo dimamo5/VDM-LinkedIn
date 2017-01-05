@@ -59,18 +59,18 @@ operations
 			while person2 not in set q do (
 				counter := counter + 1;
 			
-			-- add to the search set the connections of the current users (add to the search the next level of the tree)
+			-- Pesquisa do nivel
 				for all person in set q do(
 					qVisited:= qVisited union {person};
 					q := q union person.connects \ qVisited;
 				);
 			
-			-- to prevent an infinite loop
+			-- evitar loop infinito
 				if card q = 0 then
 					return -1
 			);
 		
-		-- if the two users are not reachable then it is returned INFINITY
+			--se for impossivel de alcancar retorna -1 caso contrario retorna o numero de niveis
 			if person2 not in set q then
 				return -1
 			else
