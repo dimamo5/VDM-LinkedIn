@@ -1,7 +1,7 @@
 class LinkedIn
 
 instance variables
-	private people: set of Person :={};
+	public people: set of Person :={};
 	inv people <> {} => verifyMaxConnect();
 operations
 	-- LinkedIn contrutor
