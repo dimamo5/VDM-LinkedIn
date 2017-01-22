@@ -1,5 +1,6 @@
 # VDM-LinkedIn
-Neste projeto pretende-se modelar a rede social Linkedin. Nesta rede é possível, entre outras coisas,
-determinar a distância entre duas pessoas, colocar CVs, procurar pessoas, calcular os contactos
-comuns entre duas pessoas, determinar a pessoa com mais contactos, calcular a distância média entre
-pessoas na rede, etc
+
+The goal of this project is to modulate a social network LinkedIn. 
+
+The aim of this project is to develop, test and document an executable formal model of a high integrity software system in VDM++ using the Overture tool or the VDMTools. 
+The purpose is to create a module of a social network, LinkedIn, where users can, among other things, determine the distance between users in the network or between two people, upload CVs, search for users, calculate contacts commoun to two users and finally determine the person with most contacts.
